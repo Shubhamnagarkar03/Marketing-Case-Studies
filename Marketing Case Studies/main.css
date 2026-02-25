@@ -45,18 +45,18 @@
     display: grid;
     grid-template-columns: 1fr auto;
     align-items: center;
-    gap: 48px;
+    gap: 54px;
   }
 
   .avatar-area {
     display: flex;
     align-items: center;
-    gap: 36px;
+    gap: 48px;
   }
 
   .avatar {
-    width: 186px;
-    height: 186px;
+    width: 200px;
+    height: 200px;
     border-radius: 70%;
     background: var(--rule);
     border: 2px solid var(--warm);
@@ -417,4 +417,5 @@
     .cases-grid { grid-template-columns: 1fr; }
     .palette-section { flex-wrap: wrap; gap: 16px; }
   }
+
 
