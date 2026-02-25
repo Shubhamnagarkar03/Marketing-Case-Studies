@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Indian Grocery Scene</title>
+  <link rel="stylesheet" href="main.css" />
+  <link rel="icon" href="grocery-cart.png">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+</head>
+<body>
+
+  <!-- ░░ HERO ░░ -->
+  <section class="hero" id="hero">
+    <div class="hero-inner">
+      <div class="hero-kicker">
+        
+        <span class="kicker-div">—</span>
+        <span class="kicker-label">Marketing Case Study by</span>
+        
+        <span class="kicker-label"><a  style="color:inherit;" href="/index.html">Shubham Nagarkar</a> · 2026</span>
+      </div>
+
+      <h1 class="hero-title">
+        <span class="title-line line-1">10 Minutes to Your Door</span>
+        <span class="title-line line-2">10 Years to Your<br><em>Habit.</em></span>
+      </h1>
+
+      <p class="hero-sub">
+        Zepto arrives in 10 minutes. Blinkit has dark stores everywhere.<br>
+        Instamart is already inside an app 40 million people use for dinner.<br>
+        So why does the kirana down the street still run the country?
+      </p>
+
+      <div class="hero-pill-row">
+        <div class="hero-pill">
+          <span class="pill-num">~2.5%</span>
+          <span class="pill-label">of India shops online for groceries</span>
+        </div>
+        <div class="hero-pill">
+          <span class="pill-num">12M+</span>
+          <span class="pill-label">kirana stores serve the rest</span>
+        </div>
+        <div class="hero-pill">
+          <span class="pill-num">400%</span>
+          <span class="pill-label">rise in platform fees, 2023–24</span>
+        </div>
+      </div>
+
+      <div class="scroll-hint">
+        <span>scroll to explore</span>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M8 3v10M3 9l5 4 5-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- decorative large number -->
+    <div class="hero-bg-num" aria-hidden="true">02</div>
+  </section>
+
+  <!-- ░░ NAV ░░ -->
+  <nav class="sticky-nav" id="stickyNav">
+    <div class="nav-inner">
+      <span class="nav-brand">You Can't Deliver a User Base.</span>
+      <div class="nav-links">
+        <a href="#section-engagement" class="nav-link active" data-section="engagement">Engagement</a>
+        <a href="#section-market" class="nav-link" data-section="market">Market Share</a>
+        <a href="#section-fees" class="nav-link" data-section="fees">Fee Trap</a>
+        <a href="#section-health" class="nav-link" data-section="health">Health</a>
+        <a href="#section-verdict" class="nav-link" data-section="verdict">Verdict</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ░░ SECTION 1: ENGAGEMENT ░░ -->
+  <section class="study-section" id="section-engagement">
+    <div class="section-inner">
+      <div class="section-header">
+        <div class="section-meta">
+          <span class="meta-index">01 /</span>
+          <span class="meta-title">Customer Engagement</span>
+        </div>
+        <h2 class="section-title">The Flatline Era</h2>
+        <p class="section-body">
+          Online food and grocery apps peaked in 2021 riding a lockdown tailwind. 
+          Since then, combined monthly transacting users for Zomato and Swiggy have barely moved. 
+          Meanwhile, India's kirana universe — 12 million stores serving 97 crore shoppers — didn't 
+          blink. The apps got bigger in headlines; the streets stayed the same.
+        </p>
+        <div class="callout-stat">
+          <span class="cs-num">35.4M</span>
+          <span class="cs-text">combined app MTU in FY25 Q3 — vs 20.3M just two quarters prior. Looks like growth. Is actually a plateau at 2.5% of India.</span>
+        </div>
+      </div>
+
+      <div class="chart-frame" id="chart-engagement">
+        <div class="chart-title-row">
+          <span class="chart-label">App MTU vs In-Store Shoppers, 2019–FY25</span>
+          <div class="legend" id="legend-engagement"></div>
+        </div>
+        <div class="chart-area" id="engagement-chart-area"></div>
+        <div class="chart-note">MTU = Monthly Transacting Users. In-store figures estimated from kirana + organized retail data. Source: Zomato/Swiggy quarterly reports, IBEF, DPIIT.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ SECTION 2: MARKET SHARE ░░ -->
+  <section class="study-section alt-bg" id="section-market">
+    <div class="section-inner">
+      <div class="section-header">
+        <div class="section-meta">
+          <span class="meta-index">02 /</span>
+          <span class="meta-title">Market Share</span>
+        </div>
+        <h2 class="section-title">Big Numbers,<br>Tiny Slice</h2>
+        <p class="section-body">
+          India's online grocery market grew from ₹42B in 2018 to over ₹1,100B by 2024. 
+          Impressive, until you remember that India's total grocery retail is worth ₹130,000B+ annually. 
+          Online's share? Still crawling under 1%. The headline number is real. The dominance is a press release.
+        </p>
+        <div class="callout-stat">
+          <span class="cs-num">&lt;1%</span>
+          <span class="cs-text">of India's grocery retail happens online — despite ₹1,100B in annual online grocery GMV and years of VC-funded discounts.</span>
+        </div>
+      </div>
+
+      <div class="chart-frame" id="chart-market">
+        <div class="chart-title-row">
+          <span class="chart-label">Online Grocery GMV (₹B) vs Market Share %, 2018–2024</span>
+          <div class="legend" id="legend-market"></div>
+        </div>
+        <div class="chart-area" id="market-chart-area"></div>
+        <div class="chart-note">GMV estimates from Grand View Research, Redseer, IBEF. Market share % = online grocery GMV / total grocery retail GMV.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ SECTION 3: FEE TRAP ░░ -->
+  <section class="study-section" id="section-fees">
+    <div class="section-inner">
+      <div class="section-header">
+        <div class="section-meta">
+          <span class="meta-index">03 /</span>
+          <span class="meta-title">The Fee Architecture</span>
+        </div>
+        <h2 class="section-title">The Small Cart<br>Is a Big Con</h2>
+        <p class="section-body">
+          Buy one pack of biscuits online and watch what happens. The platforms layer delivery fees, 
+          small cart fees, handling fees, and platform fees on top until your ₹29 snack costs ₹90+. 
+          This isn't a bug — it's engineered. The "small cart fee" exists to push you to add more items, 
+          lifting average order value for the platform. Your kirana charges none of this. Ever.
+        </p>
+        <div class="callout-stat">
+          <span class="cs-num">400%</span>
+          <span class="cs-text">increase in Zomato/Swiggy platform fees between 2023 and 2024. Restaurant menus on apps are now 20–30% pricier than dine-in.</span>
+        </div>
+      </div>
+
+      <div class="chart-frame" id="chart-fees">
+        <div class="chart-title-row">
+          <span class="chart-label">True Cost of a ₹29 Item Across Platforms</span>
+          <div class="legend" id="legend-fees"></div>
+        </div>
+        <div class="chart-area" id="fees-chart-area"></div>
+        <div class="chart-note">Fees based on observed charges for a sub-₹99 basket. MOV = Minimum Order Value. Small cart fee waived above threshold, nudging users to spend more.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ SECTION 4: HEALTH ░░ -->
+  <section class="study-section alt-bg" id="section-health">
+    <div class="section-inner">
+      <div class="section-header">
+        <div class="section-meta">
+          <span class="meta-index">04 /</span>
+          <span class="meta-title">Public Health</span>
+        </div>
+        <h2 class="section-title">You Didn't Just<br>Stop Going Out.</h2>
+        <p class="section-body">
+          When the bhaji wala lost to a 10-minute delivery, something else got lost too: 
+          the walk. The interaction. The decision. A 2025 Cureus study from Kolkata found that 
+          frequent food delivery app users showed significantly higher rates of sedentary behaviour, 
+          overeating, and emotional eating compared to low-frequency and in-store buyers. 
+          The convenience economy has a hidden invoice.
+        </p>
+        <div class="callout-stat">
+          <span class="cs-num">81%</span>
+          <span class="cs-text">of frequent food delivery app users in the study linked their app usage to a more sedentary lifestyle. 46% were classified as obese vs 31% in low-frequency users.</span>
+        </div>
+      </div>
+
+      <div class="chart-frame" id="chart-health">
+        <div class="chart-title-row">
+          <span class="chart-label">Behavioural Health Indicators: High-Freq App Users vs In-Store Buyers</span>
+          <div class="legend" id="legend-health"></div>
+        </div>
+        <div class="chart-area" id="health-chart-area"></div>
+        <div class="chart-note">Source: Tiwari et al., Cureus (2025), Kolkata study. High-freq defined as ordering 4+ times/week. Low-freq: ≤1/week or primary in-store shoppers.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ SECTION 5: VERDICT ░░ -->
+  <section class="study-section verdict-section" id="section-verdict">
+    <div class="section-inner verdict-inner">
+      <div class="verdict-left">
+        <div class="section-meta">
+          <span class="meta-index">05 /</span>
+          <span class="meta-title">Verdict</span>
+        </div>
+        <h2 class="verdict-title">Which Is<br>Feasible?</h2>
+      </div>
+      <div class="verdict-right">
+        <p class="verdict-para">
+          Online delivery is genuinely useful — for a narrow, urban, time-pressed 5–8% of India who can 
+          absorb the fee stack and don't mind being nudged into larger baskets. For everyone else, 
+          the kirana isn't a legacy system. It's the incumbent with better margins, human credit, 
+          zero delivery fees, and 12 million locations.
+        </p>
+        <p class="verdict-para">
+          The sector built extraordinary infrastructure. But infrastructure isn't habit. 
+          Zomato's flatline MTU, Swiggy's widening losses, ONDC's transaction collapse the moment 
+          subsidies dried up — these aren't bumps. They're the market telling the truth.
+        </p>
+        <p class="verdict-para">
+          Until platforms solve pricing parity, Tier 2+ viability, and a vendor ecosystem that isn't 
+          held hostage by 30–40% commissions, the bhaji wala outside your building remains 
+          the most efficient last-mile commerce system India has ever built.
+        </p>
+        <div class="verdict-punchline">
+          "They disrupted the supply chain. The kirana disrupted nothing — and won."
+        </div>
+      </div>
+    </div>
+
+    <!-- sources -->
+    <div class="sources-strip">
+      <span class="sources-label">Sources</span>
+      <span class="sources-text">Inc42 (Feb 2025) · The India Forum / Krishnapriya V.S. (Apr 2025) · Cureus / Tiwari et al. (2025) · Grand View Research · IBEF · GlobalScientificJournal / MIT-WPU (2020) · Zomato & Swiggy Quarterly Reports FY25</span>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>

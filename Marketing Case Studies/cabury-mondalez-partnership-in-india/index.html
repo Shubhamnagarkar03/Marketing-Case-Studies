@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Biscoff in India</title>
+<link rel="icon" href="biscuit.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<style>
+/* ─── RESET ─────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+/* ─── TOKENS ─────────────────────────────────────────── */
+:root{
+  --cream:   #F5F0E8;
+  --paper:   #FAFAF7;
+  --dark:    #12100A;
+  --brown:   #1A1108;
+  --caramel: #C8842A;
+  --car-lt:  #E5A84E;
+  --car-pale:#F5DFB8;
+  --car-dim: rgba(200,132,42,.10);
+  --purple:  #4A1B7A;
+  --danger:  #B83030;
+  --dan-pale:#FAEAEA;
+  --green:   #1E6B40;
+  --grn-pale:#E2F0E8;
+  --text:    #5A4A35;
+  --faint:   #9A8A75;
+  --border:  rgba(26,17,8,.09);
+  --ff-display:'Playfair Display',Georgia,serif;
+  --ff-body:   'DM Sans',sans-serif;
+  --ff-mono:   'DM Mono',monospace;
+  --px: clamp(1.5rem,7vw,7rem);
+  --py: clamp(4rem,7vh,6.5rem);
+}
+
+/* ─── BASE ───────────────────────────────────────────── */
+body{font-family:var(--ff-body);background:var(--paper);color:var(--brown);font-size:16px;line-height:1.7;overflow-x:hidden}
+
+/* ─── HERO ───────────────────────────────────────────── */
+.hero{
+  min-height:100vh;
+  background:var(--cream);
+  display:flex;flex-direction:column;justify-content:center;
+  padding:var(--py) var(--px);
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'BISCOFF';
+  position:absolute;right:-0.04em;bottom:-0.08em;
+  font-family:var(--ff-display);font-weight:900;
+  font-size:clamp(120px,24vw,340px);
+  color:rgba(200,132,42,.055);letter-spacing:-.04em;line-height:1;
+  pointer-events:none;user-select:none;
+}
+.hero-tag{font-family:var(--ff-mono);font-size:.68rem;letter-spacing:.22em;color:var(--caramel);text-transform:uppercase;margin-bottom:2.5rem;opacity:0;animation:fadeUp .8s ease forwards .2s}
+.hero h1{
+  font-family:var(--ff-display);
+  font-size:clamp(2.8rem,6.5vw,6.2rem);
+  font-weight:900;line-height:1.06;letter-spacing:-.02em;
+  color:var(--brown);max-width:900px;
+  margin-bottom:1.8rem;
+  opacity:0;animation:fadeUp .9s ease forwards .4s;
+}
+.hero h1 em{font-style:italic;color:var(--caramel)}
+.hero-sub{font-size:1.08rem;font-weight:300;color:var(--text);max-width:540px;margin-bottom:2.8rem;opacity:0;animation:fadeUp .9s ease forwards .6s}
+.hero-pills{display:flex;align-items:center;gap:1rem;margin-bottom:5rem;opacity:0;animation:fadeUp .9s ease forwards .8s}
+.pill{font-family:var(--ff-mono);font-size:.7rem;letter-spacing:.06em;padding:.45rem 1.1rem;border-radius:2px}
+.pill-purple{background:var(--purple);color:#fff}
+.pill-amber{background:var(--caramel);color:#fff}
+.pill-x{color:var(--faint);font-size:1.1rem}
+.hero-scroll{font-family:var(--ff-mono);font-size:.68rem;letter-spacing:.14em;color:var(--faint);opacity:0;animation:fadeUp .8s ease forwards 1.1s}
+
+/* ─── CHAPTERS ───────────────────────────────────────── */
+.ch{padding:var(--py) var(--px);border-top:1px solid var(--border)}
+.ch-dark{background:var(--dark);border-top:none;color:#E8DDD0}
+.ch-warm{background:var(--cream)}
+
+.ch-lbl{font-family:var(--ff-mono);font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--caramel);margin-bottom:2rem}
+.ch-lbl-lt{color:var(--car-lt)}
+.ch-lbl-red{color:var(--danger)}
+
+h2{font-family:var(--ff-display);font-size:clamp(1.9rem,4vw,3.4rem);font-weight:900;line-height:1.1;letter-spacing:-.015em;margin-bottom:1.5rem;max-width:800px}
+.h2-lt{color:#F0E8DC}
+
+.body-text{font-size:1rem;font-weight:300;color:var(--text);max-width:640px;margin-bottom:1.1rem;line-height:1.8}
+.body-lt{color:#8A7A6A;max-width:640px;font-size:1rem;font-weight:300;margin-bottom:3rem;line-height:1.8}
+
+/* ─── CH1 SPLIT ──────────────────────────────────────── */
+.split{display:grid;grid-template-columns:1.4fr 1fr;gap:5rem;align-items:start}
+.stats-col{padding-left:3.5rem;border-left:1px solid var(--border);display:flex;flex-direction:column}
+.stat-card{padding:2.2rem 0;border-bottom:1px solid var(--border)}
+.stat-card:last-child{border-bottom:none}
+.stat-big{font-family:var(--ff-display);font-size:3.4rem;font-weight:900;color:var(--caramel);line-height:1;margin-bottom:.3rem}
+.stat-unit{font-family:var(--ff-mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:.3rem}
+.stat-desc{font-size:.82rem;color:var(--text)}
+
+/* ─── TIMELINE ───────────────────────────────────────── */
+.timeline{max-width:820px;margin:0 auto}
+.tl-item{display:grid;grid-template-columns:110px 1px 1fr;column-gap:2.2rem;opacity:0;transform:translateY(14px);transition:opacity .55s ease,transform .55s ease}
+.tl-item.vis{opacity:1;transform:translateY(0)}
+.tl-date{font-family:var(--ff-mono);font-size:.62rem;color:var(--car-lt);text-align:right;padding-top:.15rem;padding-bottom:3rem}
+.tl-line{background:rgba(229,168,78,.2);position:relative}
+.tl-line::before{content:'';position:absolute;top:5px;left:50%;transform:translateX(-50%);width:7px;height:7px;border-radius:50%;background:var(--car-lt);box-shadow:0 0 0 3px rgba(229,168,78,.15)}
+.tl-body{padding-bottom:3rem}
+.tl-body h4{font-family:var(--ff-display);font-size:1.12rem;font-weight:700;color:#F0E8DC;margin-bottom:.5rem}
+.tl-body p{font-size:.87rem;color:#7A6A5A;max-width:460px;line-height:1.65}
+
+/* ─── CHART CARDS ────────────────────────────────────── */
+.chart-card{background:#fff;border:1px solid var(--border);padding:2.4rem 2.6rem 2rem;border-radius:3px;overflow:hidden}
+.ch-dark .chart-card,.ch-warm .chart-card{background:rgba(255,255,255,.035);border-color:rgba(255,255,255,.07)}
+.ch-warm .chart-card{background:#FEFCF8;border-color:var(--border)}
+.chart-title{font-family:var(--ff-mono);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-bottom:1.8rem}
+.ch-dark .chart-title{color:#6A5A4A}
+.chart-note{font-size:.78rem;color:var(--faint);font-style:italic;border-top:1px solid var(--border);padding-top:1rem;margin-top:1.4rem;line-height:1.55}
+.ch-dark .chart-note{border-color:rgba(255,255,255,.07);color:#5A4A3A}
+
+/* ─── DEAL CARDS ─────────────────────────────────────── */
+.deal-grid{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:0 1.5rem;align-items:center;margin-top:3rem}
+.deal-card{background:var(--cream);border:1px solid var(--border);padding:2rem;border-radius:3px}
+.deal-icon{font-size:1.6rem;margin-bottom:.8rem}
+.deal-card h3{font-family:var(--ff-display);font-size:1.05rem;font-weight:700;margin-bottom:.7rem}
+.deal-card p{font-size:.85rem;color:var(--text);line-height:1.65}
+.deal-arrow{font-size:1.4rem;color:var(--caramel);text-align:center}
+
+/* ─── COMPARE ────────────────────────────────────────── */
+.compare-wrap{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;margin-top:3rem;max-width:860px}
+.cmp-col{padding:2.5rem;border:1px solid rgba(255,255,255,.07)}
+.cmp-col.india-col{background:rgba(184,48,48,.07);border-color:rgba(184,48,48,.2)}
+.cmp-badge{font-family:var(--ff-mono);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;padding:.28rem .65rem;border-radius:2px;display:inline-block;margin-bottom:1rem}
+.cmp-badge.ok{background:rgba(30,107,64,.2);color:#70C090}
+.cmp-badge.warn{background:rgba(184,48,48,.25);color:#E08080}
+.cmp-col h3{font-family:var(--ff-display);font-size:1.25rem;font-weight:700;color:#F0E8DC;margin-bottom:1.5rem}
+.ing-list{list-style:none;margin-bottom:1.8rem}
+.ing-list li{padding:.48rem 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:.86rem;color:#8A7A6A;display:flex;align-items:center;gap:.7rem}
+.ing-list li::before{content:'●';font-size:.42rem;flex-shrink:0}
+.ing-ok::before{color:#70C090}
+.ing-warn{color:#E08080}
+.ing-warn::before{color:#E07070}
+.cmp-price{font-family:var(--ff-mono);font-size:.72rem;color:var(--car-lt);padding-top:1rem;border-top:1px solid rgba(255,255,255,.07)}
+.cmp-price.warn{color:#E08080}
+.cmp-vs{font-family:var(--ff-display);font-size:1.4rem;font-weight:900;color:rgba(255,255,255,.09);text-align:center;padding:0 1.8rem}
+.compare-note{margin-top:2rem;font-size:.78rem;color:#5A4A3A;font-style:italic;max-width:820px;line-height:1.65}
+
+/* ─── PULLQUOTE ──────────────────────────────────────── */
+.pullquote{margin-top:3rem;padding:2.2rem 2.5rem;border-left:3px solid var(--caramel);background:var(--car-dim);max-width:760px;border-radius:0 3px 3px 0}
+.pq-mark{font-family:var(--ff-display);font-size:3rem;color:var(--car-lt);line-height:0;vertical-align:-1.1rem;display:inline-block;margin-right:.2rem;opacity:.7}
+.pq-body{font-family:var(--ff-display);font-size:1.18rem;font-style:italic;color:var(--text);line-height:1.6}
+.pq-src{font-family:var(--ff-mono);font-size:.62rem;letter-spacing:.1em;color:var(--faint);margin-top:1rem;display:block}
+
+/* ─── HEALTH CHARTS ROW ──────────────────────────────── */
+.health-row{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:3rem}
+
+/* ─── INSIGHT BOX ────────────────────────────────────── */
+.insight{margin-top:2rem;padding:1.8rem 2.2rem;background:var(--car-dim);border-left:3px solid var(--caramel);border-radius:0 3px 3px 0}
+.insight-lbl{font-family:var(--ff-mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--caramel);margin-bottom:.7rem}
+.insight p{font-size:.96rem;color:var(--text);line-height:1.75;max-width:100%;margin:0}
+.insight em{font-style:italic;color:var(--caramel)}
+
+/* ─── KPI STRIP ──────────────────────────────────────── */
+.kpi-strip{display:flex;margin-top:3rem;background:var(--dark);border-radius:3px;overflow:hidden}
+.kpi-item{flex:1;padding:2rem 1.5rem;text-align:center;border-right:1px solid rgba(255,255,255,.06)}
+.kpi-item:last-child{border-right:none}
+.kpi-num{font-family:var(--ff-display);font-size:2.1rem;font-weight:900;color:var(--car-lt);margin-bottom:.4rem}
+.kpi-lbl{font-family:var(--ff-mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:#5A4A3A}
+
+/* ─── LEDGER ─────────────────────────────────────────── */
+.ledger{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:3rem}
+.ledger-col{display:flex;flex-direction:column;gap:2rem}
+.ledger-head{font-family:var(--ff-mono);font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;padding-bottom:1rem;border-bottom:2px solid;margin-bottom:.5rem}
+.pros .ledger-head{color:var(--green);border-color:var(--green)}
+.cons .ledger-head{color:var(--danger);border-color:var(--danger)}
+.ledger-entry{display:flex;gap:1rem;align-items:flex-start}
+.le-icon{font-size:1.15rem;flex-shrink:0;margin-top:.1rem}
+.ledger-entry strong{font-weight:500;font-size:.9rem;display:block;margin-bottom:.35rem}
+.ledger-entry p{font-size:.84rem;color:var(--text);line-height:1.65;margin:0}
+
+/* ─── CLOSING ────────────────────────────────────────── */
+.closing{background:var(--dark);min-height:85vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:var(--py) var(--px);position:relative;overflow:hidden}
+.closing::before{content:'';position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(200,132,42,.06) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.closing-inner{max-width:760px;position:relative;z-index:1}
+.closing-eyebrow{font-family:var(--ff-mono);font-size:.64rem;letter-spacing:.25em;text-transform:uppercase;color:var(--car-lt);margin-bottom:3rem}
+.closing h2{font-family:var(--ff-display);font-size:clamp(2.1rem,4.5vw,3.8rem);font-weight:900;line-height:1.15;color:#F0E8DC;margin-bottom:2.5rem;max-width:100%}
+.closing h2 em{color:var(--car-lt);font-style:italic}
+.closing p{font-size:1rem;font-weight:300;color:#6A5A4A;line-height:1.85;margin:0 auto 3rem;max-width:620px}
+.closing-tags{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center}
+.closing-tags span{font-family:var(--ff-mono);font-size:.62rem;letter-spacing:.06em;color:rgba(200,132,42,.55);padding:.35rem .8rem;border:1px solid rgba(200,132,42,.18);border-radius:2px}
+
+/* ─── FOOTER ─────────────────────────────────────────── */
+footer{background:#0A0805;border-top:1px solid rgba(255,255,255,.04);padding:1.8rem var(--px);text-align:center}
+footer p{font-family:var(--ff-mono);font-size:.6rem;color:rgba(255,255,255,.16);letter-spacing:.04em;line-height:1.7}
+
+/* ─── ANIMATIONS ─────────────────────────────────────── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* ─── D3 AXIS STYLES ─────────────────────────────────── */
+.axis text{font-family:var(--ff-mono);font-size:10px;fill:var(--faint)}
+.axis line,.axis path{stroke:var(--border)}
+.grid line{stroke:rgba(26,17,8,.045);stroke-dasharray:3,3}
+
+/* ─── RESPONSIVE ─────────────────────────────────────── */
+@media(max-width:960px){
+  .split{grid-template-columns:1fr;gap:3rem}
+  .stats-col{border-left:none;border-top:1px solid var(--border);padding-left:0;padding-top:2.5rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+  .stat-card{border-bottom:none;padding:0}
+  .deal-grid{grid-template-columns:1fr}
+  .deal-arrow{transform:rotate(90deg)}
+  .compare-wrap{grid-template-columns:1fr}
+  .cmp-vs{padding:.8rem 0}
+  .ledger{grid-template-columns:1fr}
+  .health-row{grid-template-columns:1fr}
+  .kpi-strip{flex-wrap:wrap}
+  .kpi-item{min-width:45%}
+}
+@media(max-width:600px){
+  .ch{padding:4rem 6vw}
+  .hero{padding:5rem 6vw 3rem}
+  .tl-item{grid-template-columns:72px 1px 1fr;column-gap:1.2rem}
+  .stats-col{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-tag">Marketing Case Study by <a style=color:inherit href="/index.html">Shubham Nagarkar</a> · 2025</div>
+  <h1>Your favourite airport<br/><em>biscuit</em> just went<br/>to the kirana store.</h1>
+  <p class="hero-sub">How Mondelēz and Lotus Bakeries democratised a cult cookie — and what they quietly traded away to do it.</p>
+  <div class="hero-pills">
+    <span class="pill pill-purple">Cadbury · Mondelēz</span>
+    <span class="pill-x">×</span>
+    <span class="pill pill-amber">Lotus Biscoff</span>
+  </div>
+  <div class="hero-scroll">scroll to explore ↓</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     CH1 — THE OPPORTUNITY
+══════════════════════════════════════════════════════ -->
+<section class="ch" id="ch1">
+  <div class="ch-lbl">01 — The Opportunity</div>
+  <div class="split">
+    <div>
+      <h2>India was a white space hiding in plain sight.</h2>
+      <p class="body-text">Biscoff had been in India for 15 years — imported, expensive, niche. It had cult status but zero mass-market penetration. Then Mondelēz spotted the gap: a ₹45,000 crore biscuit market, a rising premium tier, and a brand with pent-up demand that needed the right vehicle.</p>
+      <p class="body-text">The deal was signed June 2024. By November 2025, Biscoff was on kirana shelves at ₹10. Eighteen months from announcement to mass distribution.</p>
+    </div>
+    <div class="stats-col">
+      <div class="stat-card">
+        <div class="stat-big" id="s1">₹45,000</div>
+        <div class="stat-unit">Crore</div>
+        <div class="stat-desc">India's total biscuit market size (2025)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-big" id="s2">0.2%</div>
+        <div class="stat-unit">of Lotus Bakeries revenue</div>
+        <div class="stat-desc">India's share before the deal</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-big" id="s3">8.3%</div>
+        <div class="stat-unit">CAGR to 2030</div>
+        <div class="stat-desc">India biscuit market growth rate</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     CH2 — TIMELINE
+══════════════════════════════════════════════════════ -->
+<section class="ch ch-dark" id="ch2">
+  <div class="ch-lbl ch-lbl-lt">02 — The Product Journey</div>
+  <h2 class="h2-lt">From airport lounge to your kirana store.</h2>
+  <p class="body-lt">The path from ₹400 import to ₹10 street price wasn't overnight. Here's every beat of the story.</p>
+  <div class="timeline" id="timeline"></div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     CH3 — PRICE STORY
+══════════════════════════════════════════════════════ -->
+<section class="ch ch-warm" id="ch3">
+  <div class="ch-lbl">03 — The Price Story</div>
+  <h2>A 97% price drop. That's not a discount.<br/>That's a new product.</h2>
+  <p class="body-text">When price falls this dramatically, something in the product has to change. Here's the full landscape — what Biscoff cost before versus after, next to every competitor on the Indian shelf.</p>
+  <div class="chart-card" style="margin-top:2.5rem">
+    <div class="chart-title">Price per 100g (₹) — Biscoff before &amp; after vs. Indian market</div>
+    <svg id="price-chart"></svg>
+    <div class="chart-note">* Imported Biscoff ~₹380/250g on Amazon.in pre-Nov 2025. India-made based on ₹450/kg blended average across pack sizes. Competitor prices from retail audits, 2024–25.</div>
+  </div>
+  <div class="insight" style="margin-top:2rem">
+    <div class="insight-lbl">The Statement</div>
+    <p>Biscoff India sits at 2.3–2.4× the market average per kilogram — yet <em>97% cheaper per unit</em> than its own imported version. This isn't premiumisation. It's a new market position: aspirational enough to feel premium over Parle-G, accessible enough to reach 800M consumers. The price architecture <em>is</em> the strategy.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     CH4 — BUSINESS IMPACT
+══════════════════════════════════════════════════════ -->
+<section class="ch" id="ch4">
+  <div class="ch-lbl">04 — The Business Impact</div>
+  <h2>Biscoff crossed €600M. India is the next chapter.</h2>
+  <p class="body-text">Lotus Bakeries crossed €1 billion in total revenue for the first time in 2023. Biscoff alone accounts for 56% of all branded revenue, growing at 17% CAGR over 10 years. The India deal is a bet on sustaining that trajectory.</p>
+  <div class="chart-card" style="margin-top:2.5rem">
+    <div class="chart-title">Lotus Bakeries Revenue (€M) — Total vs. Biscoff share, with India deal milestone</div>
+    <svg id="revenue-chart"></svg>
+    <div class="chart-note">Source: Lotus Bakeries Annual Reports 2019–2024. 2025–26 are analyst consensus projections. Biscoff share estimated from FY2024 investor disclosure (~56% of branded revenue).</div>
+  </div>
+  <div class="kpi-strip">
+    <div class="kpi-item"><div class="kpi-num">€600M+</div><div class="kpi-lbl">Biscoff revenue 2024</div></div>
+    <div class="kpi-item"><div class="kpi-num">+20%</div><div class="kpi-lbl">Volume growth 2024</div></div>
+    <div class="kpi-item"><div class="kpi-num">+17%</div><div class="kpi-lbl">10-year CAGR</div></div>
+    <div class="kpi-item"><div class="kpi-num">80</div><div class="kpi-lbl">Countries active</div></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     CH5 — THE DEAL
+══════════════════════════════════════════════════════ -->
+<section class="ch ch-warm" id="ch5">
+  <div class="ch-lbl">05 — The Deal Structure</div>
+  <h2>Not a merger. A very clever risk transfer.</h2>
+  <p class="body-text">This is a licensing + distribution agreement. Lotus keeps the recipe and brand standards. Mondelēz takes manufacturing risk, distribution complexity, and market-building cost.</p>
+  <div class="deal-grid">
+    <div class="deal-card">
+      <div class="deal-icon">🏭</div>
+      <h3>Mondelēz provides</h3>
+      <p>Pan-India manufacturing, kirana + modern trade + e-commerce distribution, local marketing expertise, and consumer insight from 80+ years in the subcontinent.</p>
+    </div>
+    <div class="deal-arrow">⟶</div>
+    <div class="deal-card" style="background:var(--car-dim);border-color:rgba(200,132,42,.2)">
+      <div class="deal-icon">🤝</div>
+      <h3>The Exchange</h3>
+      <p>Mondelēz gains a globally beloved premium brand. Lotus Bakeries enters India at zero capex. Both accelerate growth.</p>
+    </div>
+    <div class="deal-arrow">⟶</div>
+    <div class="deal-card">
+      <div class="deal-icon">🌍</div>
+      <h3>Lotus Bakeries provides</h3>
+      <p>The Biscoff license, secret spice mix (imported from Belgium), recipe IP, brand standards, and quality oversight — retaining brand control entirely.</p>
+    </div>
+  </div>
+  <div class="chart-card" style="margin-top:3rem">
+    <div class="chart-title">Speed of innovation: Cadbury × Biscoff bar vs. industry standard NPD (weeks)</div>
+    <svg id="speed-chart"></svg>
+    <div class="chart-note">3 weeks from kickoff to production line trial at Bournville. Industry standard for equivalent NPD complexity: 52–72 weeks. Source: Mondelēz internal team interviews, May 2025.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     CH6 — SAME NAME DIFFERENT BISCUIT
+══════════════════════════════════════════════════════ -->
+<section class="ch ch-dark" id="ch6">
+  <div class="ch-lbl ch-lbl-lt">06 — The Uncomfortable Truth</div>
+  <h2 class="h2-lt">Same name. Different biscuit.</h2>
+  <p class="body-lt">To price at ₹10 you need cheap inputs. To use cheap inputs, you reformulate. In India, reformulation almost always means palm oil.</p>
+  <div class="compare-wrap">
+    <div class="cmp-col">
+      <span class="cmp-badge ok">Belgian Original</span>
+      <h3>Lotus Biscoff (EU)</h3>
+      <ul class="ing-list">
+        <li class="ing-ok">Wheat flour</li>
+        <li class="ing-ok">Candy sugar syrup (caramelised)</li>
+        <li class="ing-ok">Palm + Rapeseed oil blend</li>
+        <li class="ing-ok">Soy flour</li>
+        <li class="ing-ok">Sodium bicarbonate</li>
+        <li class="ing-ok">Cinnamon</li>
+      </ul>
+      <div class="cmp-price">~₹380 / 250g · Imported</div>
+    </div>
+    <div class="cmp-vs">VS</div>
+    <div class="cmp-col india-col">
+      <span class="cmp-badge warn">India Variant · 2025</span>
+      <h3>Biscoff India (Mondelēz)</h3>
+      <ul class="ing-list">
+        <li class="ing-ok">Refined wheat flour (Maida)</li>
+        <li class="ing-ok">Sugar</li>
+        <li class="ing-warn">Palm oil (primary fat — higher share)</li>
+        <li class="ing-ok">Raising agents</li>
+        <li class="ing-ok">Secret spice mix (imported from BE)</li>
+        <li class="ing-warn">No rapeseed oil equivalent</li>
+      </ul>
+      <div class="cmp-price warn">₹10–₹100 · Made in Alwar, Rajasthan</div>
+    </div>
+  </div>
+  <p class="compare-note">Mondelēz publicly states the "signature flavour, crunch, and caramelization remain unchanged" and that Lotus Bakeries' secret ingredient mix is imported from Belgium. The fat source reformulation is inferred from ingredient label analysis — a standard practice for locally manufactured products in India.</p>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     CH7 — THE HEALTH QUESTION
+══════════════════════════════════════════════════════ -->
+<section class="ch" id="ch7">
+  <div class="ch-lbl ch-lbl-red">07 — The Health Question</div>
+  <h2>Palm oil is cheap. India's health bill is not.</h2>
+  <p class="body-text">India is projected to lead the world in cardiovascular disease mortality. The proliferation of palm oil in mass-market snacks — driven purely by cost — is a recognised contributing factor quantified by peer-reviewed research.</p>
+  <div class="health-row">
+    <div class="chart-card">
+      <div class="chart-title">Additional CVD deaths per 100K per 1kg/capita rise in palm oil</div>
+      <svg id="cvd-chart"></svg>
+      <div class="chart-note">India's cardiovascular risk from palm oil is 3.6× higher than high-income nations. Source: Economic-epidemiological model, BMJ Public Health 2023.</div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Saturated fat content by oil type (%)</div>
+      <svg id="fat-chart"></svg>
+      <div class="chart-note">Palm oil is ~50% saturated fat — on par with butter. Rapeseed oil, used in EU Biscoff, is just 7%. The swap is material.</div>
+    </div>
+  </div>
+  <div class="pullquote">
+    <span class="pq-mark">"</span>
+    <div class="pq-body">A 20% excise tax on palm oil in India could avert between 710,000 and 930,000 deaths from heart attack and stroke over a single decade.</div>
+    <span class="pq-src">— BMJ Economic-Epidemiological Model Study, 2023</span>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     CH8 — COMPETITIVE MAP
+══════════════════════════════════════════════════════ -->
+<section class="ch ch-warm" id="ch8">
+  <div class="ch-lbl">08 — The Competitive Map</div>
+  <h2>Who Biscoff walked into a fight with.</h2>
+  <p class="body-text">Parle commands 8 million Consumer Reach Points — second only to Coca-Cola globally. Britannia and ITC are equally entrenched. Biscoff enters not as a new SKU but as a category redefinition.</p>
+  <div class="chart-card" style="margin-top:2.5rem">
+    <div class="chart-title">India biscuit market — revenue share by player (2024–25 estimated)</div>
+    <svg id="market-chart"></svg>
+    <div class="chart-note">Source: IBEF, Kantar Worldpanel 2024, industry analyst estimates. MDLZ/Biscoff premium share is post-launch projection for FY2026.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     CH9 — LEDGER
+══════════════════════════════════════════════════════ -->
+<section class="ch" id="ch9">
+  <div class="ch-lbl">09 — The Full Ledger</div>
+  <h2>What this deal actually delivers.</h2>
+  <div class="ledger">
+    <div class="ledger-col pros">
+      <div class="ledger-head">The Case For</div>
+      <div class="ledger-entry"><span class="le-icon">📈</span><div><strong>Price Democratisation</strong><p>A ₹400 import is now a ₹10 product. Real access for 800M consumers — when the product is safe at that scale.</p></div></div>
+      <div class="ledger-entry"><span class="le-icon">🏭</span><div><strong>Local Manufacturing Jobs</strong><p>New production in Alwar, Rajasthan. Mondelēz grows its ~3,000-person India workforce with skilled and unskilled roles.</p></div></div>
+      <div class="ledger-entry"><span class="le-icon">⚡</span><div><strong>Category Innovation Stimulus</strong><p>Biscoff's entry forces Britannia and Parle to compete in the premium tier — raising the entire category's quality baseline.</p></div></div>
+      <div class="ledger-entry"><span class="le-icon">🌐</span><div><strong>Zero-Capex Global Expansion</strong><p>Lotus Bakeries enters a billion-consumer market without building a single factory. Capital-efficient globalisation at its most elegant.</p></div></div>
+    </div>
+    <div class="ledger-col cons">
+      <div class="ledger-head">The Case Against</div>
+      <div class="ledger-entry"><span class="le-icon">⚠️</span><div><strong>Ingredient Double Standard</strong><p>EU consumers get rapeseed oil. Indian consumers get palm oil. Same brand. Same premium aura. Quietly different formulation.</p></div></div>
+      <div class="ledger-entry"><span class="le-icon">❤️</span><div><strong>Scaled Public Health Risk</strong><p>India leads projected global CVD mortality. Normalising palm-oil-heavy snacks at ₹10 into 800M households is a documented risk amplifier.</p></div></div>
+      <div class="ledger-entry"><span class="le-icon">🔮</span><div><strong>Brand Dilution Risk</strong><p>Biscoff's cult was built on scarcity and quality. Taste comparisons going viral threaten the premium perception this deal was built on.</p></div></div>
+      <div class="ledger-entry"><span class="le-icon">🏢</span><div><strong>Market Concentration</strong><p>Mondelēz already dominates Indian chocolate. Adding Biscoff deepens MNC control over snacking — squeezing out local premium players.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     CLOSING
+══════════════════════════════════════════════════════ -->
+<section class="closing">
+  <div class="closing-inner">
+    <div class="closing-eyebrow">The Open Question</div>
+    <h2>When a global brand <em>goes local</em>,<br/>should local consumers get<br/>the <em>same product?</em></h2>
+    <p>India is not a test market. It is the market. Mondelēz and Lotus Bakeries will almost certainly win commercially — the price point, distribution muscle, and brand equity make this structurally unbeatable. But as Biscoff scales from cult import to ₹10 kirana staple, one question lingers: Is "affordable" and "identical" too much to ask for? Or have we just accepted that emerging markets get the cheaper version of everything — and started calling it access?</p>
+    <div class="closing-tags">
+      <span>#BiscoffIndia</span><span>#PalmOilDebate</span><span>#MondelezIndia</span><span>#PremiumVsMass</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Marketing Case Study · Research compiled February 2026 · Sources: Lotus Bakeries Annual Reports 2019–2024, Mondelēz Press Releases, BMJ Public Health 2023, IBEF India Food Report 2025, Storyboard18, BakeryAndSnacks.com</p>
+</footer>
+
+<!-- ══════════════════════════════════════════════════════
+     JAVASCRIPT — ALL LOGIC INLINE, NO EXTERNAL FILES
+══════════════════════════════════════════════════════ -->
+<script>
+(function(){
+'use strict';
+
+/* ── PALETTE ───────────────────────────────────────────────── */
+const P = {
+  caramel:    '#C8842A',
+  carLight:   '#E5A84E',
+  carDim:     'rgba(200,132,42,.10)',
+  brown:      '#1A1108',
+  text:       '#5A4A35',
+  faint:      '#9A8A75',
+  paper:      '#FAFAF7',
+  green:      '#1E6B40',
+  danger:     '#B83030',
+  purple:     '#4A1B7A',
+  border:     'rgba(26,17,8,.09)',
+  grid:       'rgba(26,17,8,.045)',
+};
+
+/* ── TIMELINE ──────────────────────────────────────────────── */
+const TL = [
+  { date:'Pre-2020',   title:'The Import Era',          body:'Biscoff arrives in India as a niche import — ₹300–400 for 250g at airports and gourmet stores. Tiny share, massive aspirational aura.' },
+  { date:'H1 2023',    title:'A Glaring White Space',   body:'India contributes just 0.2% of Lotus Bakeries\' €1.06B global revenue. Urban Gen Z buzz and social-media virality signal enormous latent demand.' },
+  { date:'Jun 2024',   title:'The Deal is Signed',      body:'Mondelēz International and Lotus Bakeries announce a strategic licensing + distribution partnership. Mondelēz will manufacture, market, and distribute Biscoff across India.' },
+  { date:'Late 2024',  title:'Bournville Moves in 3 Weeks', body:'In the UK, the Cadbury Dairy Milk × Biscoff bar goes from project kickoff to production line trial in just 3 weeks.' },
+  { date:'Early 2025', title:'Rajasthan Line Goes Live', body:'A Biscoff production line comes online in Alwar, Rajasthan. Local manufacturing requires a reformulated recipe — palm oil becomes the primary fat source to hit ₹10 price targets.' },
+  { date:'Nov 2025',   title:'₹10. Kirana Shelves. All of India.', body:'Biscoff officially launches at ₹10 per pack across kirana stores, modern retail, and quick-commerce. A European cult import becomes a mass-market product overnight.' },
+  { date:'2026 →',     title:'The Story Isn\'t Over',   body:'Co-branded innovations, planned ice-cream ventures, new markets. Lotus targets Top 3 global market status for India. The questions about recipe, health, and equity travel with the brand.' },
+];
+
+function buildTimeline(){
+  const c = document.getElementById('timeline');
+  if(!c) return;
+  TL.forEach((e,i)=>{
+    const el = document.createElement('div');
+    el.className = 'tl-item';
+    el.style.transitionDelay = (i*.07)+'s';
+    el.innerHTML = `<div class="tl-date">${e.date}</div><div class="tl-line"></div><div class="tl-body"><h4>${e.title}</h4><p>${e.body}</p></div>`;
+    c.appendChild(el);
+  });
+}
+
+/* ── SCROLL OBSERVER ───────────────────────────────────────── */
+function observe(sel, cb, threshold){
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting) cb(e.target,obs); });
+  },{ threshold: threshold||.12 });
+  document.querySelectorAll(sel).forEach(el=>obs.observe(el));
+}
+
+/* ── HELPERS ───────────────────────────────────────────────── */
+function svgOf(id, W, H){
+  const el = document.getElementById(id);
+  if(!el) return null;
+  el.setAttribute('width','100%');
+  el.setAttribute('height', H);
+  el.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  return d3.select(el);
+}
+
+function axisStyle(g){ g.selectAll('text').style('font-family',"'DM Mono',monospace").style('font-size','10px').style('fill',P.faint); g.selectAll('line,path').style('stroke',P.border); }
+
+/* ── PRICE CHART ───────────────────────────────────────────── */
+function drawPrice(){
+  const data = [
+    { label:'Biscoff (Imported)',     v:152, color:'#8A7A68', note:'' },
+    { label:'Biscoff India (MDLZ)',   v:45,  color:P.caramel, note:'↓ 97% drop', hi:true },
+    { label:'Sunfeast Dark Fantasy',  v:55,  color:'#9A7A50' },
+    { label:'Oreo (Mondelēz)',        v:42,  color:P.purple },
+    { label:'Britannia Good Day',     v:28,  color:'#6A8870' },
+    { label:'Parle-G',               v:10,  color:'#7A8090' },
+  ];
+  const W=700, mL=170, mR=90, mT=12, mB=40;
+  const iW=W-mL-mR, iH=data.length*46;
+  const H=iH+mT+mB;
+  const svg=svgOf('price-chart',W,H); if(!svg) return;
+  const g=svg.append('g').attr('transform',`translate(${mL},${mT})`);
+  const x=d3.scaleLinear().domain([0,170]).range([0,iW]);
+  const y=d3.scaleBand().domain(data.map(d=>d.label)).range([0,iH]).padding(.35);
+
+  // grid
+  g.append('g').attr('class','grid').call(d3.axisTop(x).ticks(5).tickSize(-iH).tickFormat('')).call(axisStyle).select('.domain').remove();
+  // axes
+  const yAx=g.append('g').attr('class','axis').call(d3.axisLeft(y).tickSize(0));
+  axisStyle(yAx); yAx.select('.domain').remove();
+  const xAx=g.append('g').attr('class','axis').attr('transform',`translate(0,${iH})`).call(d3.axisBottom(x).ticks(5).tickFormat(d=>`₹${d}`));
+  axisStyle(xAx);
+
+  // highlight band
+  const hd = data.find(d=>d.hi);
+  if(hd) g.append('rect').attr('x',-mL).attr('y',y(hd.label)-5).attr('width',W).attr('height',y.bandwidth()+10).attr('fill','rgba(200,132,42,.07)').attr('rx',2);
+
+  // bars
+  g.selectAll('.bar').data(data).enter().append('rect')
+    .attr('class','bar').attr('y',d=>y(d.label)).attr('height',y.bandwidth())
+    .attr('x',0).attr('width',0).attr('fill',d=>d.color).attr('rx',2)
+    .transition().duration(900).delay((_,i)=>i*90).attr('width',d=>x(d.v));
+
+  // labels
+  g.selectAll('.lbl').data(data).enter().append('text')
+    .attr('y',d=>y(d.label)+y.bandwidth()/2+4).attr('x',d=>x(d.v)+7)
+    .style('font-family',"'DM Mono',monospace").style('font-size','11px')
+    .style('fill',d=>d.color).style('font-weight',d=>d.hi?'500':'400')
+    .text(d=>`₹${d.v}/100g${d.note?' · '+d.note:''}`);
+}
+
+/* ── REVENUE CHART ─────────────────────────────────────────── */
+function drawRevenue(){
+  const data = [
+    {y:2019,tot:672, bis:340},
+    {y:2020,tot:668, bis:348},
+    {y:2021,tot:755, bis:398},
+    {y:2022,tot:905, bis:468},
+    {y:2023,tot:1063,bis:510},
+    {y:2024,tot:1228,bis:614},
+    {y:2025,tot:1370,bis:710,proj:true},
+    {y:2026,tot:1520,bis:800,proj:true},
+  ];
+  const W=700,mL=58,mR=30,mT=24,mB=44;
+  const iW=W-mL-mR, iH=260;
+  const H=iH+mT+mB;
+  const svg=svgOf('revenue-chart',W,H); if(!svg) return;
+  const g=svg.append('g').attr('transform',`translate(${mL},${mT})`);
+  const x=d3.scaleLinear().domain([2019,2026]).range([0,iW]);
+  const y=d3.scaleLinear().domain([0,1700]).range([iH,0]);
+
+  // projection zone
+  const cx=x(2024.5);
+  g.append('rect').attr('x',cx).attr('y',0).attr('width',iW-cx).attr('height',iH).attr('fill','rgba(200,132,42,.05)');
+  g.append('line').attr('x1',cx).attr('x2',cx).attr('y1',0).attr('y2',iH).attr('stroke',P.caramel).attr('stroke-width',1).attr('stroke-dasharray','4,3').attr('opacity',.45);
+  g.append('text').attr('x',cx+6).attr('y',14).style('font-family',"'DM Mono',monospace").style('font-size','9px').style('fill',P.caramel).text('← deal signed / projected →');
+
+  // grid
+  g.append('g').attr('class','grid').call(d3.axisLeft(y).ticks(5).tickSize(-iW).tickFormat('')).call(axisStyle).select('.domain').remove();
+  // axes
+  const xAx=g.append('g').attr('class','axis').attr('transform',`translate(0,${iH})`).call(d3.axisBottom(x).ticks(7).tickFormat(d=>`${d}`));
+  axisStyle(xAx);
+  const yAx=g.append('g').attr('class','axis').call(d3.axisLeft(y).ticks(5).tickFormat(d=>`€${d}M`));
+  axisStyle(yAx);
+
+  // area total
+  g.append('path').datum(data).attr('fill',`${P.caramel}1A`).attr('d',d3.area().x(d=>x(d.y)).y0(iH).y1(d=>y(d.tot)).curve(d3.curveMonotoneX));
+
+  // line total
+  const pathT=g.append('path').datum(data).attr('fill','none').attr('stroke',P.caramel).attr('stroke-width',2.5).attr('d',d3.line().x(d=>x(d.y)).y(d=>y(d.tot)).curve(d3.curveMonotoneX));
+  const lenT=pathT.node().getTotalLength();
+  pathT.attr('stroke-dasharray',lenT).attr('stroke-dashoffset',lenT).transition().duration(1400).attr('stroke-dashoffset',0);
+
+  // line biscoff
+  const pathB=g.append('path').datum(data).attr('fill','none').attr('stroke','#9A6A20').attr('stroke-width',2).attr('stroke-dasharray','6,3').attr('d',d3.line().x(d=>x(d.y)).y(d=>y(d.bis)).curve(d3.curveMonotoneX));
+  const lenB=pathB.node().getTotalLength();
+  pathB.attr('stroke-dasharray',lenB).attr('stroke-dashoffset',lenB).transition().duration(1400).delay(200).attr('stroke-dashoffset',0);
+
+  // dots
+  g.selectAll('.dot').data(data).enter().append('circle')
+    .attr('cx',d=>x(d.y)).attr('cy',d=>y(d.tot)).attr('r',4)
+    .attr('fill',P.caramel).attr('stroke','#FAFAF7').attr('stroke-width',1.5)
+    .attr('opacity',d=>d.proj?.55:1);
+
+  // India launch annotation
+  g.append('circle').attr('cx',x(2025)).attr('cy',y(1370)).attr('r',6).attr('fill','none').attr('stroke',P.carLight).attr('stroke-width',1.5);
+  g.append('text').attr('x',x(2025)+10).attr('y',y(1370)-8).style('font-family',"'DM Mono',monospace").style('font-size','9px').style('fill',P.carLight).text('India launch');
+
+  // legend
+  const leg=g.append('g').attr('transform',`translate(${iW-190},4)`);
+  [{lbl:'Total Revenue',col:P.caramel,dash:false},{lbl:'Biscoff (~56%)',col:'#9A6A20',dash:true}].forEach((l,i)=>{
+    const row=leg.append('g').attr('transform',`translate(0,${i*20})`);
+    row.append('line').attr('x1',0).attr('y1',-4).attr('x2',18).attr('y2',-4).attr('stroke',l.col).attr('stroke-width',l.dash?2:2.5).attr('stroke-dasharray',l.dash?'5,2':'none');
+    row.append('text').attr('x',24).style('font-family',"'DM Mono',monospace").style('font-size','9.5px').style('fill',P.faint).text(l.lbl);
+  });
+}
+
+/* ── SPEED CHART ───────────────────────────────────────────── */
+function drawSpeed(){
+  const data=[{lbl:'Industry Standard NPD',v:62,col:'#9A8A75'},{lbl:'Cadbury × Biscoff Bar',v:3,col:P.caramel,hi:true}];
+  const W=700,mL=185,mR=80,mT=10,mB=40;
+  const iW=W-mL-mR,iH=data.length*52;
+  const H=iH+mT+mB;
+  const svg=svgOf('speed-chart',W,H); if(!svg) return;
+  const g=svg.append('g').attr('transform',`translate(${mL},${mT})`);
+  const x=d3.scaleLinear().domain([0,70]).range([0,iW]);
+  const y=d3.scaleBand().domain(data.map(d=>d.lbl)).range([0,iH]).padding(.4);
+
+  g.append('g').attr('class','grid').call(d3.axisTop(x).ticks(5).tickSize(-iH).tickFormat('')).call(axisStyle).select('.domain').remove();
+  const xAx=g.append('g').attr('class','axis').attr('transform',`translate(0,${iH})`).call(d3.axisBottom(x).ticks(6).tickFormat(d=>`${d}w`));
+  axisStyle(xAx);
+  const yAx=g.append('g').attr('class','axis').call(d3.axisLeft(y).tickSize(0));
+  axisStyle(yAx); yAx.select('.domain').remove();
+
+  g.selectAll('.bar').data(data).enter().append('rect')
+    .attr('y',d=>y(d.lbl)).attr('height',y.bandwidth()).attr('x',0).attr('width',0).attr('fill',d=>d.col).attr('rx',2)
+    .transition().duration(1000).delay((_,i)=>i*200).attr('width',d=>x(d.v));
+
+  g.selectAll('.lbl').data(data).enter().append('text')
+    .attr('y',d=>y(d.lbl)+y.bandwidth()/2+4).attr('x',d=>x(d.v)+8)
+    .style('font-family',"'DM Mono',monospace").style('font-size','11px').style('fill',d=>d.col).style('font-weight',d=>d.hi?'500':'400')
+    .text(d=>`${d.v} weeks`);
+}
+
+/* ── CVD CHART ─────────────────────────────────────────────── */
+function drawCvd(){
+  const data=[{r:'High-income',v:19,col:'#3A8A60'},{r:'Middle-income',v:44,col:P.caramel},{r:'India',v:68,col:P.danger}];
+  const W=320,mL=48,mR=16,mT=14,mB=48;
+  const iW=W-mL-mR,iH=200;
+  const H=iH+mT+mB;
+  const svg=svgOf('cvd-chart',W,H); if(!svg) return;
+  const g=svg.append('g').attr('transform',`translate(${mL},${mT})`);
+  const x=d3.scaleBand().domain(data.map(d=>d.r)).range([0,iW]).padding(.38);
+  const y=d3.scaleLinear().domain([0,80]).range([iH,0]);
+
+  g.append('g').attr('class','grid').call(d3.axisLeft(y).ticks(4).tickSize(-iW).tickFormat('')).call(axisStyle).select('.domain').remove();
+  const xAx=g.append('g').attr('class','axis').attr('transform',`translate(0,${iH})`).call(d3.axisBottom(x));
+  axisStyle(xAx);
+  const yAx=g.append('g').attr('class','axis').call(d3.axisLeft(y).ticks(4));
+  axisStyle(yAx);
+
+  g.selectAll('.bar').data(data).enter().append('rect')
+    .attr('x',d=>x(d.r)).attr('width',x.bandwidth()).attr('y',iH).attr('height',0).attr('fill',d=>d.col).attr('rx',2)
+    .transition().duration(900).delay((_,i)=>i*180).attr('y',d=>y(d.v)).attr('height',d=>iH-y(d.v));
+
+  g.selectAll('.lbl').data(data).enter().append('text')
+    .attr('x',d=>x(d.r)+x.bandwidth()/2).attr('y',d=>y(d.v)-7).attr('text-anchor','middle')
+    .style('font-family',"'DM Mono',monospace").style('font-size','11px').style('font-weight','500').style('fill',d=>d.col)
+    .text(d=>d.v);
+}
+
+/* ── FAT CHART ─────────────────────────────────────────────── */
+function drawFat(){
+  const data=[
+    {lbl:'Rapeseed (EU Biscoff)',v:7, col:'#3A8A60'},
+    {lbl:'Sunflower oil',        v:11,col:'#5A9A50'},
+    {lbl:'Olive oil',            v:14,col:'#7AAA48'},
+    {lbl:'Palm oil (IN Biscoff)',v:50,col:P.danger},
+    {lbl:'Butter (reference)',   v:51,col:'#A07060'},
+  ];
+  const W=320,mL=148,mR=44,mT=14,mB=36;
+  const iW=W-mL-mR,iH=data.length*38;
+  const H=iH+mT+mB;
+  const svg=svgOf('fat-chart',W,H); if(!svg) return;
+  const g=svg.append('g').attr('transform',`translate(${mL},${mT})`);
+  const y=d3.scaleBand().domain(data.map(d=>d.lbl)).range([0,iH]).padding(.32);
+  const x=d3.scaleLinear().domain([0,60]).range([0,iW]);
+
+  g.append('g').attr('class','grid').call(d3.axisTop(x).ticks(4).tickSize(-iH).tickFormat('')).call(axisStyle).select('.domain').remove();
+  const yAx=g.append('g').attr('class','axis').call(d3.axisLeft(y).tickSize(0));
+  axisStyle(yAx); yAx.select('.domain').remove();
+  const xAx=g.append('g').attr('class','axis').attr('transform',`translate(0,${iH})`).call(d3.axisBottom(x).ticks(4).tickFormat(d=>`${d}%`));
+  axisStyle(xAx);
+
+  g.selectAll('.bar').data(data).enter().append('rect')
+    .attr('y',d=>y(d.lbl)).attr('height',y.bandwidth()).attr('x',0).attr('width',0).attr('fill',d=>d.col).attr('rx',2)
+    .transition().duration(900).delay((_,i)=>i*110).attr('width',d=>x(d.v));
+
+  g.selectAll('.lbl').data(data).enter().append('text')
+    .attr('y',d=>y(d.lbl)+y.bandwidth()/2+4).attr('x',d=>x(d.v)+6)
+    .style('font-family',"'DM Mono',monospace").style('font-size','10px').style('fill',d=>d.col)
+    .text(d=>`${d.v}%`);
+}
+
+/* ── MARKET CHART (donut) ──────────────────────────────────── */
+function drawMarket(){
+  const data=[
+    {lbl:'Parle',                      pct:32,col:'#7A8090'},
+    {lbl:'Britannia',                  pct:24,col:'#6A7880'},
+    {lbl:'ITC Sunfeast',               pct:16,col:'#6A7868'},
+    {lbl:'Mondelēz (existing)',         pct:8, col:P.purple},
+    {lbl:'Others / Regional',          pct:17,col:'#A09080'},
+    {lbl:'Biscoff MDLZ (proj. FY26)',  pct:3, col:P.caramel},
+  ];
+  const W=680,H=300,cx=200,cy=150,r=120;
+  const svg=svgOf('market-chart',W,H); if(!svg) return;
+  const pie=d3.pie().value(d=>d.pct).sort(null);
+  const arc=d3.arc().innerRadius(r*.56).outerRadius(r);
+  const arcH=d3.arc().innerRadius(r*.53).outerRadius(r+9);
+  const g=svg.append('g').attr('transform',`translate(${cx},${cy})`);
+
+  g.selectAll('path').data(pie(data)).enter().append('path')
+    .attr('d',arc).attr('fill',d=>d.data.col).attr('stroke','#FAFAF7').attr('stroke-width',2)
+    .style('cursor','pointer')
+    .on('mouseover',function(){ d3.select(this).transition().duration(140).attr('d',arcH); })
+    .on('mouseout', function(){ d3.select(this).transition().duration(140).attr('d',arc); });
+
+  g.append('text').attr('text-anchor','middle').attr('dy','-.2em')
+    .style('font-family',"'Playfair Display',serif").style('font-size','1.55rem').style('font-weight','900').style('fill',P.brown).text('₹45K Cr');
+  g.append('text').attr('text-anchor','middle').attr('dy','1.3em')
+    .style('font-family',"'DM Mono',monospace").style('font-size','9px').style('fill',P.faint).text('India market');
+
+  // legend
+  const legG=svg.append('g').attr('transform',`translate(${cx+r+36},${cy-data.length*21})`);
+  data.forEach((d,i)=>{
+    const row=legG.append('g').attr('transform',`translate(0,${i*42})`);
+    row.append('rect').attr('width',9).attr('height',9).attr('y',-9).attr('fill',d.col).attr('rx',1);
+    row.append('text').attr('x',16).style('font-family',"'DM Mono',monospace").style('font-size','9.5px').style('fill',d.lbl.includes('Biscoff')?P.caramel:P.faint).text(d.lbl);
+    row.append('text').attr('x',16).attr('y',14).style('font-family',"'Playfair Display',serif").style('font-size','1.05rem').style('font-weight','700').style('fill',d.col).text(`${d.pct}%`);
+  });
+}
+
+/* ── INIT ──────────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded',()=>{
+  buildTimeline();
+
+  // timeline scroll
+  observe('.tl-item',(el,obs)=>{ el.classList.add('vis'); obs.unobserve(el); });
+
+  // charts fire once on scroll entry
+  const charts = {
+    'price-chart':   drawPrice,
+    'revenue-chart': drawRevenue,
+    'speed-chart':   drawSpeed,
+    'cvd-chart':     drawCvd,
+    'fat-chart':     drawFat,
+    'market-chart':  drawMarket,
+  };
+
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const fn = charts[e.target.id];
+        if(fn){ fn(); obs.unobserve(e.target); }
+      }
+    });
+  },{ threshold:.08 });
+
+  Object.keys(charts).forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) obs.observe(el);
+  });
+});
+
+})();
+</script>
+</body>
+</html>
