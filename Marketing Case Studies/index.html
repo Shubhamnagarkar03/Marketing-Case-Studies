@@ -15,16 +15,20 @@
   <!-- HEADER -->
   <header>
     <div class="header-inner">
-      <div>
+
+      <!-- LEFT SIDE: avatar + intro + palette -->
+      <div class="header-left">
         <div class="avatar-area">
-          <div style="position:relative;">
+          <div style="position:relative; flex-shrink:0;">
             <div class="avatar-ring"></div>
-            <div class="avatar"> <img src="/images/me4.jpg" alt="Shubham Nagarkar"> </div>
+            <div class="avatar">
+              <img src="/images/me4.jpg" alt="Shubham Nagarkar">
+            </div>
           </div>
           <div class="intro">
             <p class="label">Portfolio · 2026</p>
-            <h1>I am <em>Shubham    </em><br>Nagarkar</h1>
-            <p class="bio">Hi! I am an experienced <b>data and marketing professional</b> who follows his passion for storytelling and case studies. This is a page for my side quests!<br> <b>Think we can connect? Look on the right!</b><br>And if you're on the phone, look down!</p>
+            <h1>I am <em>Shubham</em><br>Nagarkar</h1>
+            <p class="bio">Hi! I am an experienced <b>data and marketing professional</b> who follows his passion for storytelling and case studies. This is a page for my side quests!<br><b>Think we can connect? Look on the right!</b><br>And if you're on the phone, look down!</p>
           </div>
         </div>
 
@@ -60,34 +64,29 @@
         </div>
       </div>
 
-      <!-- SOCIAL LINKS -->
+      <!-- RIGHT SIDE: social links -->
       <div class="socials">
+        <a href="https://www.linkedin.com/in/shubham-nagarkar-068452175/" target="_blank" class="social-link" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+          LinkedIn
+        </a>
+        <a href="https://github.com/Shubhamnagarkar03" target="_blank" class="social-link" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+          </svg>
+          GitHub
+        </a>
+        <a href="mailto:s9nagarkar@gmail.com" class="social-link" aria-label="Email">
+          <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 4H4C2.897 4 2 4.897 2 6v12c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm0 2-8 5-8-5h16zm0 12H4V8.868l8 5 8-5V18z"/>
+          </svg>
+          Email
+        </a>
+      </div>
 
-  <a href="https://www.linkedin.com/in/shubham-nagarkar-068452175/" target="_blank" class="social-link" aria-label="LinkedIn">
-    <!-- LinkedIn icon -->
-    <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-    </svg>
-    LinkedIn
-  </a>
-
-  <a href="https://github.com/Shubhamnagarkar03" target="_blank" class="social-link" aria-label="GitHub">
-    <!-- GitHub icon -->
-    <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
-    </svg>
-    GitHub
-  </a>
-
-  <a href="mailto:s9nagarkar@gmail.com" class="social-link" aria-label="Email">
-    <!-- Mail icon -->
-    <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-      <path d="M20 4H4C2.897 4 2 4.897 2 6v12c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm0 2-8 5-8-5h16zm0 12H4V8.868l8 5 8-5V18z"/>
-    </svg>
-    Email
-  </a>
-
-</div>
+    </div>
   </header>
 
   <!-- WORK SECTION -->
@@ -99,15 +98,14 @@
 
     <div class="cases-grid">
 
-      <!-- CARD 1 -->
-      <a href="\cabury-mondalez-partnership-in-india\index.html" class="case-card">
+      <a href="/cabury-mondalez-partnership-in-india/index.html" class="case-card">
         <span class="case-num">01 —</span>
         <div class="case-thumb"><img src="/images/cadbiscoff.png" alt="Cabury Mondalez Partnership in India"></div>
         <div class="case-meta">
           <span class="tag">Product Research</span>
           <span class="tag">Cadbury|Lotus</span>
         </div>
-        <h3 class="case-title">Cabury Mondalez and Lotus Partnership in India</h3>
+        <h3 class="case-title">Cadbury Mondelēz and Lotus Partnership in India</h3>
         <p class="case-desc">How Mondelēz and Lotus Bakeries democratised a cult cookie — and what they quietly traded away to do it.</p>
         <div class="case-footer">
           <span class="case-year">2025</span>
@@ -115,7 +113,6 @@
         </div>
       </a>
 
-      <!-- CARD 2 -->
       <a href="/online-grocery-india/index.html" class="case-card">
         <span class="case-num">02 —</span>
         <div class="case-thumb"><img src="/images/ongro.png" alt="Online Grocery India"></div>
@@ -124,17 +121,14 @@
           <span class="tag">Swiggy|Zomato|Zepto|In-Store</span>
         </div>
         <h3 class="case-title">Online vs In-store grocery experience in India</h3>
-        <p class="case-desc">Zepto arrives in 10 minutes. Blinkit has dark stores everywhere.
-Instamart is already inside an app 40 million people use for dinner.
-So why does the kirana down the street still run the country?</p>
+        <p class="case-desc">Zepto arrives in 10 minutes. Blinkit has dark stores everywhere. Instamart is already inside an app 40 million people use for dinner. So why does the kirana down the street still run the country?</p>
         <div class="case-footer">
           <span class="case-year">2026</span>
           <span class="case-cta">View Case Study</span>
         </div>
-        </a>
+      </a>
 
-
-      <a href="\apple-product-marketing-tactic\index.html" class="case-card">
+      <a href="/apple-product-marketing-tactic/index.html" class="case-card">
         <span class="case-num">03 —</span>
         <div class="case-thumb"><img src="/images/apple-bg.jpg" alt="The Apple Illusion"></div>
         <div class="case-meta">
@@ -143,90 +137,23 @@ So why does the kirana down the street still run the country?</p>
           <span class="tag">Marketing Tactic</span>
         </div>
         <h3 class="case-title">The Apple Illusion</h3>
-        <p class="case-desc">An investigation into how Apple engineers desire, not just products; examining the psychological tactics, 
-          EMI financing traps, and ecosystem lock-in strategies that turn India's aspirations into an annual upgrade cycle.
-          Backed by IDC, Counterpoint Research, and RBI data."</p>
+        <p class="case-desc">An investigation into how Apple engineers desire, not just products — examining psychological tactics, EMI financing traps, and ecosystem lock-in strategies that turn India's aspirations into an annual upgrade cycle.</p>
         <div class="case-footer">
           <span class="case-year">2026</span>
           <span class="case-cta">View Case Study</span>
         </div>
-        </a>
-      
-   
-      
-
-      <!-- CARD 4 (commented out) -->
-      <!--
-      <a href="#" class="case-card">
-        <span class="case-num">04 —</span>
-        <div class="case-thumb"><div class="case-thumb-inner">Preview</div></div>
-        <div class="case-meta">
-          <span class="tag">Mobile</span>
-          <span class="tag">UX</span>
-        </div>
-        <h3 class="case-title">Project Title Four</h3>
-        <p class="case-desc">A brief summary of the challenge, approach, and impact. Keep this to 2–3 lines.</p>
-        <div class="case-footer">
-          <span class="case-year">2023</span>
-          <span class="case-cta">View Case Study</span>
-        </div>
       </a>
-      -->
-
-      <!-- CARD 5 (commented out) -->
-      <!--
-      <a href="#" class="case-card">
-        <span class="case-num">05 —</span>
-        <div class="case-thumb"><div class="case-thumb-inner">Preview</div></div>
-        <div class="case-meta">
-          <span class="tag">Branding</span>
-        </div>
-        <h3 class="case-title">Project Title Five</h3>
-        <p class="case-desc">A brief summary of the challenge, approach, and impact. Keep this to 2–3 lines.</p>
-        <div class="case-footer">
-          <span class="case-year">2022</span>
-          <span class="case-cta">View Case Study</span>
-        </div>
-      </a>
-      -->
-
-      <!-- CARD 6 (commented out) -->
-      <!--
-      <a href="#" class="case-card">
-        <span class="case-num">06 —</span>
-        <div class="case-thumb"><div class="case-thumb-inner">Preview</div></div>
-        <div class="case-meta">
-          <span class="tag">Web</span>
-          <span class="tag">Frontend</span>
-        </div>
-        <h3 class="case-title">Project Title Six</h3>
-        <p class="case-desc">A brief summary of the challenge, approach, and impact. Keep this to 2–3 lines.</p>
-        <div class="case-footer">
-          <span class="case-year">2022</span>
-          <span class="case-cta">View Case Study</span>
-        </div>
-      </a>
-      -->
 
     </div>
   </section>
 
   <!-- FOOTER -->
   <footer>
-    <span class="footer-text">Shubham Nagarkar· Portfolio</span>
+    <span class="footer-text">Shubham Nagarkar · Portfolio</span>
     <span class="footer-text">© 2026</span>
   </footer>
 
 </div>
 
 </body>
-
 </html>
-
-
-
-
-
-
-
-
